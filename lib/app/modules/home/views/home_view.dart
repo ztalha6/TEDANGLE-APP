@@ -2,6 +2,8 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:tedangle/app/app_service.dart';
+import 'package:tedangle/app/routes/app_pages.dart';
 
 import '../controllers/home_controller.dart';
 
@@ -34,21 +36,39 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     );
   }
 
+  Future<void> _loginUser(AppService appService, int i) async {
+    await appService.signIn(i);
+    setState(() {});
+  }
+
+  Future<void> _signOut(AppService appService) async {
+    await appService.signOut();
+    setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
+    final appService = Get.put(AppService());
     return Scaffold(
-      backgroundColor: Color(0xFF142F43),
+      backgroundColor: const Color(0xFF142F43),
       appBar: AppBar(
         elevation: 0,
-        backgroundColor: Color(0xFF142F43),
+        backgroundColor: const Color(0xFF142F43),
         toolbarHeight: 100,
-        title: const Text('TEDANGLE',
-            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+        title: Column(
+          children: [
+            const Text('TEDANGLE',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            Text(appService.getCurrentUserEmail(),
+                style: TextStyle(fontSize: 14)),
+          ],
+        ),
         centerTitle: true,
       ),
-      body: Column(
+      //TODO: change list view to column
+      body: ListView(
         children: [
-          SizedBox(
+          const SizedBox(
             height: 40,
           ),
           Stack(
@@ -60,62 +80,64 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   DottedBorder(
                     color: Colors.white,
                     borderType: BorderType.Circle,
-                    dashPattern: [15],
-                    radius: Radius.circular(12),
+                    dashPattern: const [15],
+                    radius: const Radius.circular(12),
                     child: ClipRRect(
-                      borderRadius: BorderRadius.all(Radius.circular(12)),
+                      borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Container(
                         width: 150,
                         height: 150,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                             // color: const Color(0xFF0C7D0D).withOpacity(0.2),
                             borderRadius:
-                                const BorderRadius.all(Radius.circular(220))),
+                                BorderRadius.all(Radius.circular(220))),
                       ),
                     ),
                   ),
                   RotationTransition(
                     turns: controller2!,
                     child: Transform.translate(
-                      offset: Offset(60, -40),
+                      offset: const Offset(60, -40),
                       child: Align(
                         // alignment: Alignment.topLeft,
                         child: Container(
                           decoration: const BoxDecoration(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(40)),
+                              color: Color(0xff112B3C)),
+                          height: 75.0,
+                          width: 75.0,
+                          child: Image.asset('assets/java.png'),
+                        ),
+                      ),
+                    ),
+                  ),
+                  RotationTransition(
+                    turns: controller2!,
+                    child: Transform.translate(
+                      offset: const Offset(-10, 70),
+                      child: Container(
+                        decoration: const BoxDecoration(
                             borderRadius: BorderRadius.all(Radius.circular(40)),
-                            color: Colors.green,
-                          ),
-                          height: 70.0,
-                          width: 70.0,
-                        ),
+                            color: Color(0xff112B3C)),
+                        height: 75.0,
+                        width: 75.0,
+                        child: Image.asset('assets/python.png'),
                       ),
                     ),
                   ),
                   RotationTransition(
                     turns: controller2!,
                     child: Transform.translate(
-                      offset: Offset(-10, 70),
+                      offset: const Offset(-60, -40),
                       child: Container(
                         decoration: const BoxDecoration(
                           borderRadius: BorderRadius.all(Radius.circular(40)),
-                          color: Colors.green,
+                          color: Color(0xff112B3C),
                         ),
-                        height: 70.0,
-                        width: 70.0,
-                      ),
-                    ),
-                  ),
-                  RotationTransition(
-                    turns: controller2!,
-                    child: Transform.translate(
-                      offset: Offset(-60, -40),
-                      child: Container(
-                        decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          color: Colors.green,
-                        ),
-                        height: 70.0,
-                        width: 70.0,
+                        height: 80.0,
+                        width: 80.0,
+                        child: Image.asset('assets/kotlin.png'),
                       ),
                     ),
                   ),
@@ -124,96 +146,119 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               DottedBorder(
                 color: Colors.white,
                 borderType: BorderType.Circle,
-                dashPattern: [15],
-                radius: Radius.circular(12),
+                dashPattern: const [15],
+                radius: const Radius.circular(12),
                 child: ClipRRect(
-                  borderRadius: BorderRadius.all(Radius.circular(12)),
+                  borderRadius: const BorderRadius.all(Radius.circular(12)),
                   child: Container(
                     width: 300,
                     height: 300,
-                    decoration: BoxDecoration(
+                    decoration: const BoxDecoration(
                         // color: const Color(0xFF0C7D0D).withOpacity(0.2),
-                        borderRadius:
-                            const BorderRadius.all(Radius.circular(220))),
+                        borderRadius: BorderRadius.all(Radius.circular(220))),
                   ),
                 ),
               ),
               RotationTransition(
                 turns: controller!,
                 child: Transform.translate(
-                  offset: Offset(-150, 0),
+                  offset: const Offset(-150, 0),
                   child: Align(
                     // alignment: Alignment.topLeft,
                     child: Container(
                       decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          color: Color(0xff112B3C)),
+                      height: 75.0,
+                      width: 75.0,
+                      child: Image.asset('assets/react.png'),
+                    ),
+                  ),
+                ),
+              ),
+              RotationTransition(
+                turns: controller!,
+                child: Transform.translate(
+                  offset: const Offset(150, -0),
+                  child: Container(
+                    decoration: const BoxDecoration(
                         borderRadius: BorderRadius.all(Radius.circular(40)),
-                        color: Colors.green,
-                      ),
-                      height: 70.0,
-                      width: 70.0,
-                    ),
+                        color: Color(0xff112B3C)),
+                    height: 75.0,
+                    width: 75.0,
+                    child: Image.asset('assets/nodejs.png'),
                   ),
                 ),
               ),
               RotationTransition(
                 turns: controller!,
                 child: Transform.translate(
-                  offset: Offset(150, -0),
+                  offset: const Offset(0, -150),
                   child: Container(
                     decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Colors.green,
-                    ),
-                    height: 70.0,
-                    width: 70.0,
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
+                        color: Color(0xff112B3C)),
+                    height: 75.0,
+                    width: 75.0,
+                    child: Image.asset('assets/flutter.png'),
                   ),
                 ),
               ),
               RotationTransition(
                 turns: controller!,
                 child: Transform.translate(
-                  offset: Offset(0, -150),
+                  offset: const Offset(0, 150),
                   child: Container(
                     decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Colors.green,
+                      color: Color(0xff112B3C),
                     ),
-                    height: 70.0,
-                    width: 70.0,
-                  ),
-                ),
-              ),
-              RotationTransition(
-                turns: controller!,
-                child: Transform.translate(
-                  offset: Offset(0, 150),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Colors.green,
-                    ),
-                    height: 70.0,
-                    width: 70.0,
+                    height: 75.0,
+                    width: 75.0,
+                    child: Image.asset('assets/javascript.png'),
                   ),
                 ),
               ),
             ],
           ),
-          Spacer(),
+          const Spacer(),
+          TextButton(
+              onPressed: () => appService.createUsers(),
+              child: const Text(
+                'Create users',
+                style: TextStyle(color: Colors.white),
+              )),
+          ElevatedButton(
+              onPressed: () {
+                _loginUser(appService, 1);
+              },
+              child: const Text('Login User 1')),
+          ElevatedButton(
+              onPressed: () {
+                _loginUser(appService, 2);
+              },
+              child: const Text('Login User 2')),
+          ElevatedButton(
+              onPressed: () {
+                _signOut(appService);
+              },
+              child: const Text('Sign Out')),
           RaisedButton(
-            onPressed: () {},
+            onPressed: () {
+              Get.toNamed(Routes.CHAT);
+            },
             color: Colors.amber,
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            child: Padding(
-              padding: const EdgeInsets.all(18.0),
+            child: const Padding(
+              padding: EdgeInsets.all(18.0),
               child: Text(
                 "Find Developers",
                 style: TextStyle(fontSize: 20),
               ),
             ),
           ),
-          SizedBox(
+          const SizedBox(
             height: 30,
           ),
         ],
