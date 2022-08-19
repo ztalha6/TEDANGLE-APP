@@ -77,7 +77,7 @@ class _ChatViewState extends State<ChatView> {
                   )),
             ),
             SizedBox(
-              height: 490,
+              height: Get.height / 1.4,
               child: StreamBuilder<List<Message>>(
                 stream: appService.getMessages(),
                 builder: (context, snapshot) {
@@ -115,11 +115,13 @@ class _ChatViewState extends State<ChatView> {
               //     }),
             ),
             Padding(
-              padding: const EdgeInsets.only(left: 16, right: 16, bottom: 16),
+              padding: const EdgeInsets.only(
+                  left: 16, right: 16, bottom: 16, top: 12),
               child: Row(
+                mainAxisSize: MainAxisSize.max,
                 children: [
                   Container(
-                    width: 270,
+                    width: Get.width / 1.38,
                     child: Form(
                       key: _formkey,
                       child: TextField(
