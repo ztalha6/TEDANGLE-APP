@@ -14,7 +14,7 @@ class ChatModel {
 }
 
 class ChatView extends StatefulWidget {
-  ChatView({Key? key}) : super(key: key);
+  const ChatView({Key? key}) : super(key: key);
 
   @override
   State<ChatView> createState() => _ChatViewState();
@@ -68,8 +68,8 @@ class _ChatViewState extends State<ChatView> {
                       )),
                   child: Center(
                     child: Text(
-                      appService.appName.value + "Java, Python",
-                      style: TextStyle(
+                      "${appService.appName.value}Java, Python",
+                      style: const TextStyle(
                         fontSize: 25,
                         color: Colors.white,
                       ),
@@ -87,8 +87,8 @@ class _ChatViewState extends State<ChatView> {
                         shrinkWrap: true,
                         reverse: true,
                         itemCount: messages.length,
-                        padding:
-                            EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 16, vertical: 16),
                         itemBuilder: (BuildContext context, int index) {
                           final message = messages[index];
                           // return Text(message.content);
@@ -97,7 +97,7 @@ class _ChatViewState extends State<ChatView> {
                           );
                         });
                   }
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator.adaptive(
                       backgroundColor: Colors.grey,
                     ),
@@ -120,7 +120,7 @@ class _ChatViewState extends State<ChatView> {
               child: Row(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Container(
+                  SizedBox(
                     width: Get.width / 1.38,
                     child: Form(
                       key: _formkey,
@@ -131,14 +131,14 @@ class _ChatViewState extends State<ChatView> {
                             borderRadius: BorderRadius.circular(20.0),
                           ),
                           filled: true,
-                          hintStyle: TextStyle(color: Color(0xFFA6A6A6)),
+                          hintStyle: const TextStyle(color: Color(0xFFA6A6A6)),
                           hintText: "Type in your text",
-                          fillColor: Color(0xFF004AAD),
+                          fillColor: const Color(0xFF004AAD),
                         ),
                       ),
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     width: 10,
                   ),
                   Container(
@@ -154,7 +154,7 @@ class _ChatViewState extends State<ChatView> {
                         _submit(appService);
                         // setState(() {});
                       },
-                      icon: Icon(Icons.bolt, color: Color(0xFFFFC331)),
+                      icon: const Icon(Icons.bolt, color: Color(0xFFFFC331)),
                     ),
                   )
                 ],
@@ -195,14 +195,14 @@ class ChatBubble extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     message.content,
-                    style: TextStyle(color: Colors.white),
+                    style: const TextStyle(color: Colors.white),
                   ),
                 ),
               ),
             ),
             Text(
               message.createAt.toString(),
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
             MarkAsRead(
               message: message,

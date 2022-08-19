@@ -17,6 +17,8 @@ class HomeView extends StatefulWidget {
 class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   AnimationController? controller;
   AnimationController? controller2;
+  TextEditingController emailController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
@@ -44,6 +46,38 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   Future<void> _signOut(AppService appService) async {
     await appService.signOut();
     setState(() {});
+  }
+
+  Future<void> _displayTextInputDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            shape: const RoundedRectangleBorder(
+                borderRadius: BorderRadius.all(Radius.circular(32.0))),
+            content: TextField(
+              controller: emailController,
+              decoration: InputDecoration(
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(20.0),
+                ),
+                suffix: InkWell(
+                  onTap: () {},
+                  child: const Icon(
+                    Icons.send_rounded,
+                    size: 20,
+                    color: Color(0xFF142F43),
+                  ),
+                ),
+                focusColor: const Color(0xFF142F43),
+                hoverColor: const Color(0xFF142F43),
+                filled: true,
+                hintStyle: const TextStyle(color: Color(0xFFA6A6A6)),
+                hintText: "Enter your email",
+              ),
+            ),
+          );
+        });
   }
 
   @override
@@ -245,7 +279,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               child: const Text('Sign Out')),
           RaisedButton(
             onPressed: () {
-              Get.toNamed(Routes.CHAT);
+              _displayTextInputDialog(context);
+              // Get.toNamed(Routes.CHAT);
             },
             color: Colors.amber,
             shape:
