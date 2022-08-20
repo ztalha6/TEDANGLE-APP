@@ -38,8 +38,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     );
   }
 
-  Future<void> _loginUser(AppService appService, int i) async {
-    await appService.signIn(i);
+  Future<void> _loginUser(AppService appService, String email) async {
+    await appService.signIn(email);
     setState(() {});
   }
 
@@ -48,7 +48,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     setState(() {});
   }
 
-  Future<void> _displayTextInputDialog(BuildContext context) async {
+  Future<void> _displayTextInputDialog(
+      BuildContext context, AppService appService,
+      {bool isLogin = false}) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -62,7 +64,12 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   borderRadius: BorderRadius.circular(20.0),
                 ),
                 suffix: InkWell(
-                  onTap: () {},
+                  onTap: () {
+                    Navigator.pop(context);
+                    isLogin
+                        ? _loginUser(appService, emailController.text)
+                        : appService.createUser(emailController.text);
+                  },
                   child: const Icon(
                     Icons.send_rounded,
                     size: 20,
@@ -99,8 +106,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
         ),
         centerTitle: true,
       ),
-      //TODO: change list view to column
-      body: ListView(
+      body: Column(
         children: [
           const SizedBox(
             height: 40,
@@ -256,45 +262,96 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             ],
           ),
           const Spacer(),
-          TextButton(
-              onPressed: () => appService.createUsers(),
-              child: const Text(
-                'Create users',
-                style: TextStyle(color: Colors.white),
-              )),
-          ElevatedButton(
-              onPressed: () {
-                _loginUser(appService, 1);
-              },
-              child: const Text('Login User 1')),
-          ElevatedButton(
-              onPressed: () {
-                _loginUser(appService, 2);
-              },
-              child: const Text('Login User 2')),
-          ElevatedButton(
+          // TextButton(
+          //     onPressed: () => appService.createUsers(),
+          //     child: const Text(
+          //       'Create users',
+          //       style: TextStyle(color: Colors.white),
+          //     )),
+
+          Visibility(
+            visible: appService.getCurrentUserEmail().isNotEmpty,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: RaisedButton(
+                onPressed: () {
+                  Get.toNamed(Routes.CHAT);
+                },
+                color: Colors.amber,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Text(
+                    "CHAT ROOM",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ),
+          Visibility(
+            visible: appService.getCurrentUserEmail().isNotEmpty,
+            child: RaisedButton(
               onPressed: () {
                 _signOut(appService);
               },
-              child: const Text('Sign Out')),
-          RaisedButton(
-            onPressed: () {
-              _displayTextInputDialog(context);
-              // Get.toNamed(Routes.CHAT);
-            },
-            color: Colors.amber,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
-            child: const Padding(
-              padding: EdgeInsets.all(18.0),
-              child: Text(
-                "Find Developers",
-                style: TextStyle(fontSize: 20),
+              color: Colors.amber,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              child: const Padding(
+                padding: EdgeInsets.all(18.0),
+                child: Text(
+                  "SIGN OUT",
+                  style: TextStyle(fontSize: 20),
+                ),
+              ),
+            ),
+          ),
+
+          Visibility(
+            visible: appService.getCurrentUserEmail().isEmpty,
+            child: Padding(
+              padding: const EdgeInsets.only(bottom: 16),
+              child: RaisedButton(
+                onPressed: () {
+                  _displayTextInputDialog(context, appService, isLogin: true);
+                },
+                color: Colors.amber,
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30)),
+                child: const Padding(
+                  padding: EdgeInsets.all(18.0),
+                  child: Text(
+                    "LOGIN",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                ),
+              ),
+            ),
+          ),
+
+          Visibility(
+            visible: appService.getCurrentUserEmail().isEmpty,
+            child: RaisedButton(
+              onPressed: () {
+                _displayTextInputDialog(context, appService);
+                // Get.toNamed(Routes.CHAT);
+              },
+              color: Colors.amber,
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30)),
+              child: const Padding(
+                padding: EdgeInsets.all(18.0),
+                child: Text(
+                  "Register",
+                  style: TextStyle(fontSize: 20),
+                ),
               ),
             ),
           ),
           const SizedBox(
-            height: 30,
+            height: 20,
           ),
         ],
       ),
