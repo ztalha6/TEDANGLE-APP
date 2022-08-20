@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:tedangle/app/app_service.dart';
 import 'package:tedangle/app/modules/chat/models/message.dart';
-
-import '../controllers/chat_controller.dart';
 
 class ChatModel {
   final String message;
@@ -23,8 +22,11 @@ class ChatView extends StatefulWidget {
 class _ChatViewState extends State<ChatView> {
   TextEditingController messageController = TextEditingController();
   final _formkey = GlobalKey<FormState>();
+  bool isLoading = false;
 
   Future<void> _submit(AppService appService) async {
+    isLoading = true;
+    setState(() {});
     final text = messageController.text;
     if (text.isEmpty) {
       return;
@@ -34,6 +36,8 @@ class _ChatViewState extends State<ChatView> {
       await appService.saveMessage(text);
       messageController.text = '';
     }
+    isLoading = false;
+    setState(() {});
   }
 
   // List<ChatModel> chats = [
@@ -125,6 +129,7 @@ class _ChatViewState extends State<ChatView> {
                     child: Form(
                       key: _formkey,
                       child: TextField(
+                        style: const TextStyle(color: Colors.white),
                         controller: messageController,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
@@ -149,12 +154,22 @@ class _ChatViewState extends State<ChatView> {
                     height: 60.0,
                     width: 60.0,
                     child: IconButton(
-                      onPressed: () {
-                        // chats.add(ChatModel(messageController.text, true));
-                        _submit(appService);
-                        // setState(() {});
-                      },
-                      icon: const Icon(Icons.bolt, color: Color(0xFFFFC331)),
+                      onPressed: isLoading
+                          ? () {}
+                          : () {
+                              // chats.add(ChatModel(messageController.text, true));
+                              _submit(appService);
+                              // setState(() {});
+                            },
+                      icon: isLoading
+                          ? const SizedBox(
+                              height: 20,
+                              width: 20,
+                              child: CircularProgressIndicator(
+                                color: Color(0xFFFFC331),
+                              ),
+                            )
+                          : const Icon(Icons.bolt, color: Color(0xFFFFC331)),
                     ),
                   )
                 ],
@@ -183,7 +198,7 @@ class ChatBubble extends StatelessWidget {
               : CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: const EdgeInsets.only(bottom: 8, top: 16),
               child: Container(
                 decoration: const BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(15)),
@@ -200,12 +215,17 @@ class ChatBubble extends StatelessWidget {
                 ),
               ),
             ),
-            Text(
-              message.createAt.toString(),
-              style: const TextStyle(color: Colors.white),
-            ),
-            MarkAsRead(
-              message: message,
+            Row(
+              children: [
+                Text(
+                  DateFormat('dd-MM-yyyy').format(message.createAt).toString(),
+                  style: const TextStyle(color: Colors.white),
+                ),
+                const SizedBox(width: 5),
+                MarkAsRead(
+                  message: message,
+                ),
+              ],
             )
           ],
         ),

@@ -67,7 +67,7 @@ class AppService extends GetxController {
   }
 
   Stream<List<Message>> getMessages() {
-    return _supabase
+    Stream<List<Message>> messages = _supabase
         .from('message')
         .stream(['id'])
         .order('created_at')
@@ -75,6 +75,8 @@ class AppService extends GetxController {
         .map((maps) => maps
             .map((item) => Message.fromJson(item, getCurrentUserId()))
             .toList());
+
+    return messages;
   }
 
   Future<void> saveMessage(String content) async {
