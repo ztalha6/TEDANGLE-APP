@@ -7,7 +7,7 @@ class AppService extends GetxController {
   final _supabase = Supabase.instance.client;
   final _password = 'Tedangle@supabase';
 
-  RxString appName = RxString('Tedangle');
+  RxString appName = RxString('CHAT ROOM');
 
   Future<void> createUser(String email) async {
     GotrueSessionResponse response =

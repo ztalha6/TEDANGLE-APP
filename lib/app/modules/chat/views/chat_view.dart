@@ -61,32 +61,50 @@ class _ChatViewState extends State<ChatView> {
         body: Column(
           children: [
             Container(
-              height: 100.0,
+              height: Get.height / 6,
               color: Colors.transparent,
               child: Container(
                   decoration: const BoxDecoration(
-                      color: Color(0xFF00569E),
+                      color: Color(0xFF142F43),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(40.0),
                         bottomRight: Radius.circular(40.0),
                       )),
                   child: Center(
-                    child: Text(
-                      "${appService.appName.value}Java, Python",
-                      style: const TextStyle(
-                        fontSize: 25,
-                        color: Colors.white,
-                      ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          model.appName.value,
+                          style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.white70,
+                          ),
+                        ),
+                        Text(
+                          "Connect with programmers!",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: Colors.green,
+                          ),
+                        ),
+                      ],
                     ),
                   )),
             ),
             SizedBox(
-              height: Get.height / 1.4,
+              height: Get.height / 1.45,
               child: StreamBuilder<List<Message>>(
                 stream: appService.getMessages(),
                 builder: (context, snapshot) {
                   if (snapshot.hasData) {
                     final messages = snapshot.data!;
+                    // for (var i = 0; i < messages.length; i++) {
+                    //   messages.removeWhere((element) =>
+                    //       element.content == messages[i].content &&
+                    //       element.isMine);
+                    // }
+                    // messages.removeWhere((element) => !element.markAsRead);
                     return ListView.builder(
                         shrinkWrap: true,
                         reverse: true,
@@ -129,8 +147,16 @@ class _ChatViewState extends State<ChatView> {
                     child: Form(
                       key: _formkey,
                       child: TextField(
+                        onSubmitted: isLoading
+                            ? (s) {}
+                            : (s) {
+                                // chats.add(ChatModel(messageController.text, true));
+                                _submit(appService);
+                                // setState(() {});
+                              },
                         style: const TextStyle(color: Colors.white),
                         controller: messageController,
+                        textInputAction: TextInputAction.done,
                         decoration: InputDecoration(
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
@@ -219,7 +245,7 @@ class ChatBubble extends StatelessWidget {
               children: [
                 Text(
                   DateFormat('dd-MM-yyyy').format(message.createAt).toString(),
-                  style: const TextStyle(color: Colors.white),
+                  style: TextStyle(color: Colors.grey.shade600),
                 ),
                 const SizedBox(width: 5),
                 MarkAsRead(

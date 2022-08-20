@@ -2,6 +2,7 @@ import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tedangle/app/app_service.dart';
 import 'package:tedangle/app/routes/app_pages.dart';
 
@@ -58,6 +59,13 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(32.0))),
             content: TextField(
+              onSubmitted: (s) {
+                Navigator.pop(context);
+                isLogin
+                    ? _loginUser(appService, emailController.text)
+                    : appService.createUser(emailController.text);
+              },
+              textInputAction: TextInputAction.done,
               controller: emailController,
               decoration: InputDecoration(
                 border: OutlineInputBorder(
@@ -70,9 +78,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                         ? _loginUser(appService, emailController.text)
                         : appService.createUser(emailController.text);
                   },
-                  child: const Icon(
+                  child: Icon(
                     Icons.send_rounded,
-                    size: 20,
+                    size: 2.h,
                     color: Color(0xFF142F43),
                   ),
                 ),
@@ -95,21 +103,22 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFF142F43),
-        toolbarHeight: 100,
+        toolbarHeight: 12.h,
         title: Column(
           children: [
-            const Text('TEDANGLE',
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20)),
+            SizedBox(height: 4.h),
+            Text('TEDANGLE',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22.sp)),
             Text(appService.getCurrentUserEmail(),
-                style: TextStyle(fontSize: 14)),
+                style: TextStyle(fontSize: 16.sp, color: Colors.green)),
           ],
         ),
         centerTitle: true,
       ),
       body: Column(
         children: [
-          const SizedBox(
-            height: 40,
+          SizedBox(
+            height: 10.h,
           ),
           Stack(
             alignment: Alignment.center,
@@ -125,8 +134,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     child: ClipRRect(
                       borderRadius: const BorderRadius.all(Radius.circular(12)),
                       child: Container(
-                        width: 150,
-                        height: 150,
+                        width: 25.h,
+                        height: 35.w,
                         decoration: const BoxDecoration(
                             // color: const Color(0xFF0C7D0D).withOpacity(0.2),
                             borderRadius:
@@ -261,7 +270,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               ),
             ],
           ),
-          const Spacer(),
+          SizedBox(height: 16.h),
           // TextButton(
           //     onPressed: () => appService.createUsers(),
           //     child: const Text(
@@ -272,7 +281,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           Visibility(
             visible: appService.getCurrentUserEmail().isNotEmpty,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: EdgeInsets.only(bottom: 2.h),
               child: RaisedButton(
                 onPressed: () {
                   Get.toNamed(Routes.CHAT);
@@ -280,11 +289,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 color: Colors.amber,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Text(
                     "CHAT ROOM",
-                    style: TextStyle(fontSize: 20),
+                    style: TextStyle(fontSize: 20.sp),
                   ),
                 ),
               ),
@@ -299,20 +308,19 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               color: Colors.amber,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
-              child: const Padding(
-                padding: EdgeInsets.all(18.0),
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
                 child: Text(
-                  "SIGN OUT",
-                  style: TextStyle(fontSize: 20),
+                  "GO OFFLINE",
+                  style: TextStyle(fontSize: 14.sp),
                 ),
               ),
             ),
           ),
-
           Visibility(
             visible: appService.getCurrentUserEmail().isEmpty,
             child: Padding(
-              padding: const EdgeInsets.only(bottom: 16),
+              padding: EdgeInsets.only(bottom: 2.h),
               child: RaisedButton(
                 onPressed: () {
                   _displayTextInputDialog(context, appService, isLogin: true);
@@ -320,17 +328,16 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 color: Colors.amber,
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(30)),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Text(
-                    "LOGIN",
-                    style: TextStyle(fontSize: 20),
+                    "COME ONLINE",
+                    style: TextStyle(fontSize: 20.sp),
                   ),
                 ),
               ),
             ),
           ),
-
           Visibility(
             visible: appService.getCurrentUserEmail().isEmpty,
             child: RaisedButton(
@@ -341,11 +348,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               color: Colors.amber,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
-              child: const Padding(
-                padding: EdgeInsets.all(18.0),
+              child: Padding(
+                padding: EdgeInsets.all(12.0),
                 child: Text(
                   "Register",
-                  style: TextStyle(fontSize: 20),
+                  style: TextStyle(fontSize: 14.sp),
                 ),
               ),
             ),
