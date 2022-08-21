@@ -189,7 +189,7 @@ class _ChatViewState extends State<ChatView> {
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                       color: Color(0xFF004AAD),
                     ),
-                    height: 8.h,
+                    height: 7.h,
                     width: 15.w,
                     child: IconButton(
                       onPressed: isLoading

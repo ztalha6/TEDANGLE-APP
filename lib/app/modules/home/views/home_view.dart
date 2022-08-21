@@ -20,6 +20,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   AnimationController? controller;
   AnimationController? controller2;
   TextEditingController emailController = TextEditingController();
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -41,13 +42,27 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
   }
 
   Future<void> _loginUser(AppService appService, String email) async {
+    isLoading = true;
+    setState(() {});
     await appService.signIn(email);
+    isLoading = false;
     setState(() {});
   }
 
   Future<void> _signOut(AppService appService) async {
-    await appService.signOut();
+    isLoading = true;
     setState(() {});
+    await appService.signOut();
+    isLoading = false;
+    setState(() {});
+  }
+
+  Future<void> createUser(AppService appService, String email) async {
+    isLoading = true;
+    setState(() {});
+    await appService.createUser(email);
+    setState(() {});
+    _loginUser(appService, email);
   }
 
   Future<void> _displayTextInputDialog(
@@ -64,7 +79,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 Navigator.pop(context);
                 isLogin
                     ? _loginUser(appService, emailController.text)
-                    : appService.createUser(emailController.text);
+                    : createUser(appService, emailController.text);
               },
               textInputAction: TextInputAction.done,
               controller: emailController,
@@ -77,7 +92,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     Navigator.pop(context);
                     isLogin
                         ? _loginUser(appService, emailController.text)
-                        : appService.createUser(emailController.text);
+                        : createUser(appService, emailController.text);
                   },
                   child: Icon(
                     Icons.send_rounded,
@@ -153,17 +168,13 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                     turns: controller2!,
                     child: Transform.translate(
                       offset: const Offset(60, -40),
-                      child: Align(
-                        // alignment: Alignment.topLeft,
-                        child: Container(
-                          decoration: const BoxDecoration(
-                              borderRadius:
-                                  BorderRadius.all(Radius.circular(40)),
-                              color: Color(0xff112B3C)),
-                          height: 75.0,
-                          width: 75.0,
-                          child: Image.asset('assets/java.png'),
-                        ),
+                      child: Container(
+                        decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.all(Radius.circular(40)),
+                            color: Color(0xff112B3C)),
+                        height: 75.0,
+                        width: 75.0,
+                        child: Image.asset('assets/java.png'),
                       ),
                     ),
                   ),
@@ -218,16 +229,13 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                 turns: controller!,
                 child: Transform.translate(
                   offset: const Offset(-150, 0),
-                  child: Align(
-                    // alignment: Alignment.topLeft,
-                    child: Container(
-                      decoration: const BoxDecoration(
-                          borderRadius: BorderRadius.all(Radius.circular(40)),
-                          color: Color(0xff112B3C)),
-                      height: 75.0,
-                      width: 75.0,
-                      child: Image.asset('assets/react.png'),
-                    ),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                        borderRadius: BorderRadius.all(Radius.circular(40)),
+                        color: Color(0xff112B3C)),
+                    height: 75.0,
+                    width: 75.0,
+                    child: Image.asset('assets/react.png'),
                   ),
                 ),
               ),
@@ -360,17 +368,22 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                       MaterialStateProperty.all<Color>(Color(0xFFFFC331)),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                     RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(30.0),
+                      borderRadius: BorderRadius.circular(50.0),
                       // side: BorderSide(color: Colors.amber, width: 2.0),
                     ),
                   ),
                 ),
                 child: Padding(
                   padding: EdgeInsets.all(18.0),
-                  child: Text(
-                    "COME ONLINE",
-                    style: TextStyle(fontSize: 20.sp, color: Colors.black),
-                  ),
+                  child: isLoading
+                      ? CircularProgressIndicator(
+                          color: Colors.black,
+                        )
+                      : Text(
+                          "COME ONLINE",
+                          style:
+                              TextStyle(fontSize: 20.sp, color: Colors.black),
+                        ),
                 ),
               ),
             ),
@@ -378,8 +391,9 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           Visibility(
             visible: appService.getCurrentUserEmail().isEmpty,
             child: ElevatedButton(
-              onPressed: () {
-                _displayTextInputDialog(context, appService);
+              onPressed: () async {
+                await _displayTextInputDialog(context, appService);
+
                 // Get.toNamed(Routes.CHAT);
               },
               // color: Colors.amber,

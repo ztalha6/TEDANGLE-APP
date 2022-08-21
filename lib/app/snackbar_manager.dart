@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 class SnackbarManager {
   void showSuccessSnackbar(String message) {
@@ -16,7 +17,7 @@ class SnackbarManager {
               child: Text(
             message,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 16,
               fontFamily: 'Gotham',
               fontWeight: FontWeight.w400,
               color: Colors.white,
@@ -35,14 +36,14 @@ class SnackbarManager {
       '',
       backgroundColor: Color(0xffFF5C5C),
       titleText: Container(),
-      borderRadius: 0,
+      borderRadius: 30,
       messageText: Row(
         children: [
           Expanded(
               child: Text(
             message,
             style: TextStyle(
-              fontSize: 12,
+              fontSize: 16.sp,
               fontFamily: 'Gotham',
               fontWeight: FontWeight.w400,
               color: Colors.white,
@@ -50,12 +51,15 @@ class SnackbarManager {
           )),
         ],
       ),
-      mainButton: buttonText != null
-          ? TextButton(
-              onPressed: buttonOnPressed,
-              child: Text(buttonText),
-            )
-          : null,
+      mainButton: TextButton(
+        onPressed: () {
+          Get.closeCurrentSnackbar();
+        },
+        child: Icon(
+          Icons.close,
+          color: Colors.white,
+        ),
+      ),
       duration: const Duration(seconds: 2),
     );
   }
