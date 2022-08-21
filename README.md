@@ -7,7 +7,9 @@ Presenting the modern age Chat app **Tedangle** specially for developers that en
 This project encompasses the tech stack as 
 
 * SupaBase
-*	Flutter 
+*	Flutter
+
+## Dependencies
 *	get 4.6.5
 *	supabase:0.3.6
 *	dotted_border:2.0.0+2
@@ -55,7 +57,7 @@ https://user-images.githubusercontent.com/55826410/185793947-32d4997b-3964-4efe-
 <img src="https://user-images.githubusercontent.com/55826410/185794012-f0ce4758-fe9d-4a83-8010-bea88ff75ac8.png" data-canonical-src="https://user-images.githubusercontent.com/55826410/185794012-f0ce4758-fe9d-4a83-8010-bea88ff75ac8.png" width="200" height="450" />
 </div>
 
-## Team  
+# Team  
 
 **FLUTTER 7’s**
 
