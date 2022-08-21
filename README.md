@@ -1,4 +1,4 @@
-# Tedangle
+# ⚡ Tedangle
 Presenting the modern age Chat app **Tedangle** as the name suggest Ted:”signifies techies in the world” angle:” bespeak’s the chat angle between the developers of the tech community”
 
 # Tedangle Description
@@ -15,7 +15,7 @@ This project encompasses the tech stack as
 *	sizer:2.0.15
 *	flutter_ripple:0.03
 
-## Functionality 
+## 💫 Functionalities 
 Chat app designed to chat with developers all around the world around on various topics. Enjoy seamless chatting using the app as it features:
 
 *	Minimalistic color UI
@@ -25,6 +25,7 @@ Chat app designed to chat with developers all around the world around on various
 *	Developed with the creativity and passion of developers
 * Exception handling
 * Major & minor cases covered
+* Responsive
 
 
 ## Demo & Screenshots
