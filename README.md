@@ -23,6 +23,8 @@ Chat app designed to chat with developers all around the world around on various
 *	Various categories to chat with login functionality
 *	Feasibility to go off chat
 *	Developed with the creativity and passion of developers
+* Exception handling
+* Major & minor cases covered
 
 
 ## Demo & Screenshots
