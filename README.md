@@ -58,10 +58,12 @@ https://user-images.githubusercontent.com/55826410/185793947-32d4997b-3964-4efe-
 
 #### Muhammed Talha Siddique
 Twitter Handle: https://twitter.com/Talhak60
+<br />
 GitHub Handle: https://github.com/ztalha6
 
 #### Gaurang Mishra                                   
-Twitter Handle: https://twitter.com/Gaurang__07 
+Twitter Handle: https://twitter.com/Gaurang__07
+<br />
 GitHub Handle: https://github.com/Gaurangseven
 
 
@@ -69,7 +71,12 @@ GitHub Handle: https://github.com/Gaurangseven
 To develop an open-source chat app specially designed to cater the needs of a developer to chat with fellow buddies and ignite their minds with tech ideas.
 
 # Supabase Usage
-Authentication: Using Supabase email authentication to set up users on to the chat app for only valid users in the system.
-Real-time: fetching data using real time mechanism of Supabase to show chats at the client’s site in the application.
-Database: storage of messages in a fast and secure Postgres database aiding in storage of messages in a secure environment with the advantage of stable and advanced Supabase databases.
+## Authentication: 
+Using Supabase email authentication to set up users on to the chat app for only valid users in the system.
+
+## Real-time: 
+Fetching data using real time mechanism of Supabase to show chats at the client’s site in the application.
+
+## Database: 
+Storage of messages in a fast and secure Postgres database aiding in storage of messages in a secure environment with the advantage of stable and advanced Supabase databases.
 
