@@ -54,10 +54,14 @@ https://user-images.githubusercontent.com/55826410/185793947-32d4997b-3964-4efe-
 
 ### Members 
 
-Gaurang Mishra                                   
-Twitter Handle: https://twitter.com/Gaurang__07
-Muhammed Talha Siddique
+#### Muhammed Talha Siddique
 Twitter Handle: https://twitter.com/Talhak60
+GitHub Handle: https://github.com/ztalha6
+
+#### Gaurang Mishra                                   
+Twitter Handle: https://twitter.com/Gaurang__07 
+GitHub Handle: https://github.com/Gaurangseven
+
 
 ## Motive for Tedangle
 To develop an open-source chat app specially designed to cater the needs of a developer to chat with fellow buddies and ignite their minds with tech ideas.
