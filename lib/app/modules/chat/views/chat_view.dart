@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:sizer/sizer.dart';
 import 'package:tedangle/app/app_service.dart';
 import 'package:tedangle/app/modules/chat/models/message.dart';
 
@@ -61,7 +62,7 @@ class _ChatViewState extends State<ChatView> {
         body: Column(
           children: [
             Container(
-              height: Get.height / 6,
+              height: 20.h,
               color: Colors.transparent,
               child: Container(
                   decoration: const BoxDecoration(
@@ -74,17 +75,20 @@ class _ChatViewState extends State<ChatView> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
+                        SizedBox(
+                          height: 2.h,
+                        ),
                         Text(
                           model.appName.value,
                           style: TextStyle(
-                            fontSize: 25,
+                            fontSize: 20.sp,
                             color: Colors.white70,
                           ),
                         ),
                         Text(
                           "Connect with programmers!",
                           style: TextStyle(
-                            fontSize: 16,
+                            fontSize: 14.sp,
                             color: Colors.green,
                           ),
                         ),
@@ -93,7 +97,7 @@ class _ChatViewState extends State<ChatView> {
                   )),
             ),
             SizedBox(
-              height: Get.height / 1.45,
+              height: Get.height / 1.50,
               child: StreamBuilder<List<Message>>(
                 stream: appService.getMessages(),
                 builder: (context, snapshot) {
@@ -143,6 +147,9 @@ class _ChatViewState extends State<ChatView> {
                 mainAxisSize: MainAxisSize.max,
                 children: [
                   SizedBox(
+                    width: 0.5.h,
+                  ),
+                  SizedBox(
                     width: Get.width / 1.38,
                     child: Form(
                       key: _formkey,
@@ -161,6 +168,11 @@ class _ChatViewState extends State<ChatView> {
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(20.0),
                           ),
+                          focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                            borderSide: const BorderSide(
+                                color: Colors.amber, width: 2.0),
+                          ),
                           filled: true,
                           hintStyle: const TextStyle(color: Color(0xFFA6A6A6)),
                           hintText: "Type in your text",
@@ -177,8 +189,8 @@ class _ChatViewState extends State<ChatView> {
                       borderRadius: BorderRadius.all(Radius.circular(40)),
                       color: Color(0xFF004AAD),
                     ),
-                    height: 60.0,
-                    width: 60.0,
+                    height: 8.h,
+                    width: 15.w,
                     child: IconButton(
                       onPressed: isLoading
                           ? () {}
@@ -188,9 +200,9 @@ class _ChatViewState extends State<ChatView> {
                               // setState(() {});
                             },
                       icon: isLoading
-                          ? const SizedBox(
-                              height: 20,
-                              width: 20,
+                          ? SizedBox(
+                              height: 3.h,
+                              width: 6.w,
                               child: CircularProgressIndicator(
                                 color: Color(0xFFFFC331),
                               ),
@@ -236,7 +248,7 @@ class ChatBubble extends StatelessWidget {
                   padding: const EdgeInsets.all(16.0),
                   child: Text(
                     message.content,
-                    style: const TextStyle(color: Colors.white),
+                    style: TextStyle(color: Colors.white, fontSize: 12.sp),
                   ),
                 ),
               ),
@@ -266,7 +278,7 @@ class MarkAsRead extends StatelessWidget {
 
   final _markRead = const Icon(
     Icons.mark_chat_read,
-    color: Colors.green,
+    color: Color(0xFFFFC331),
     size: 18.0,
   );
 

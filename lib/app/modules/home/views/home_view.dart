@@ -1,5 +1,6 @@
 import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_ripple/flutter_ripple.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
@@ -28,13 +29,13 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
     controller!.repeat(
       // min: 0.0,
       // max: 1.0,
-      period: const Duration(seconds: 20),
+      period: const Duration(seconds: 30),
       // reverse: true,
     );
     controller2!.repeat(
       // min: 0.0,
       // max: 1.0,
-      period: const Duration(seconds: 7),
+      period: const Duration(seconds: 15),
       // reverse: true,
     );
   }
@@ -80,7 +81,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
                   },
                   child: Icon(
                     Icons.send_rounded,
-                    size: 2.h,
+                    size: 20,
                     color: Color(0xFF142F43),
                   ),
                 ),
@@ -103,7 +104,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       appBar: AppBar(
         elevation: 0,
         backgroundColor: const Color(0xFF142F43),
-        toolbarHeight: 12.h,
+        toolbarHeight: 13.h,
         title: Column(
           children: [
             SizedBox(height: 4.h),
@@ -118,7 +119,7 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
       body: Column(
         children: [
           SizedBox(
-            height: 10.h,
+            height: 7.h,
           ),
           Stack(
             alignment: Alignment.center,
@@ -126,6 +127,11 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               Stack(
                 alignment: Alignment.center,
                 children: <Widget>[
+                  FlutterRipple(
+                    child: Container(),
+                    rippleColor: Colors.green.withOpacity(0.1),
+                    radius: 100,
+                  ),
                   DottedBorder(
                     color: Colors.white,
                     borderType: BorderType.Circle,
@@ -270,7 +276,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               ),
             ],
           ),
-          SizedBox(height: 16.h),
+
+          Spacer(),
           // TextButton(
           //     onPressed: () => appService.createUsers(),
           //     child: const Text(
@@ -282,18 +289,28 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             visible: appService.getCurrentUserEmail().isNotEmpty,
             child: Padding(
               padding: EdgeInsets.only(bottom: 2.h),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   Get.toNamed(Routes.CHAT);
                 },
-                color: Colors.amber,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                // color: Colors.amber,
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(30)),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFFFFC331)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      // side: BorderSide(color: Colors.amber, width: 2.0),
+                    ),
+                  ),
+                ),
                 child: Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Text(
                     "CHAT ROOM",
-                    style: TextStyle(fontSize: 20.sp),
+                    style: TextStyle(fontSize: 20.sp, color: Colors.black),
                   ),
                 ),
               ),
@@ -301,13 +318,23 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           ),
           Visibility(
             visible: appService.getCurrentUserEmail().isNotEmpty,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 _signOut(appService);
               },
-              color: Colors.amber,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
+              // color: Colors.amber,
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(30)),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.transparent),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: BorderSide(color: Colors.red, width: 1.5),
+                  ),
+                ),
+              ),
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Text(
@@ -321,18 +348,28 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
             visible: appService.getCurrentUserEmail().isEmpty,
             child: Padding(
               padding: EdgeInsets.only(bottom: 2.h),
-              child: RaisedButton(
+              child: ElevatedButton(
                 onPressed: () {
                   _displayTextInputDialog(context, appService, isLogin: true);
                 },
-                color: Colors.amber,
-                shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30)),
+                // color: Colors.amber,
+                // shape: RoundedRectangleBorder(
+                //     borderRadius: BorderRadius.circular(30)),
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Color(0xFFFFC331)),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(30.0),
+                      // side: BorderSide(color: Colors.amber, width: 2.0),
+                    ),
+                  ),
+                ),
                 child: Padding(
                   padding: EdgeInsets.all(18.0),
                   child: Text(
                     "COME ONLINE",
-                    style: TextStyle(fontSize: 20.sp),
+                    style: TextStyle(fontSize: 20.sp, color: Colors.black),
                   ),
                 ),
               ),
@@ -340,14 +377,24 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
           ),
           Visibility(
             visible: appService.getCurrentUserEmail().isEmpty,
-            child: RaisedButton(
+            child: ElevatedButton(
               onPressed: () {
                 _displayTextInputDialog(context, appService);
                 // Get.toNamed(Routes.CHAT);
               },
-              color: Colors.amber,
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(30)),
+              // color: Colors.amber,
+              // shape: RoundedRectangleBorder(
+              //     borderRadius: BorderRadius.circular(30)),
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all<Color>(Colors.transparent),
+                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                  RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(30.0),
+                    side: BorderSide(color: Color(0xFFFFC331), width: 2.0),
+                  ),
+                ),
+              ),
               child: Padding(
                 padding: EdgeInsets.all(12.0),
                 child: Text(
@@ -357,8 +404,8 @@ class _HomeViewState extends State<HomeView> with TickerProviderStateMixin {
               ),
             ),
           ),
-          const SizedBox(
-            height: 20,
+          SizedBox(
+            height: 5.h,
           ),
         ],
       ),
