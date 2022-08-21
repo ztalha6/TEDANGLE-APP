@@ -30,13 +30,15 @@ Chat app designed to chat with developers all around the world around on various
 ## Demo & Screenshots
 
 ### Videos
-
+<div align="center">
+  
 https://user-images.githubusercontent.com/55826410/185793582-1aece764-5436-4474-909b-099b666fc1ee.mp4
 
 https://user-images.githubusercontent.com/55826410/185793947-32d4997b-3964-4efe-a0b5-611c396de2c1.mov
+</div>
 
 ### Screenshots
-
+<div align="center">
 <img src="https://user-images.githubusercontent.com/55826410/185793977-866ed4ea-5d98-4ad3-978d-4314aa724d98.png" data-canonical-src="https://user-images.githubusercontent.com/55826410/185793977-866ed4ea-5d98-4ad3-978d-4314aa724d98.png" width="200" height="450" />
 
 <img src="https://user-images.githubusercontent.com/55826410/185793994-b61b5e9b-0660-47e8-b01f-50a48dddbe56.png" data-canonical-src="https://user-images.githubusercontent.com/55826410/185793994-b61b5e9b-0660-47e8-b01f-50a48dddbe56.png" width="200" height="450" />
@@ -46,7 +48,7 @@ https://user-images.githubusercontent.com/55826410/185793947-32d4997b-3964-4efe-
 <img src="https://user-images.githubusercontent.com/55826410/185794011-bba11ecf-83ca-4b07-b743-ee14aadf4b5d.png" data-canonical-src="https://user-images.githubusercontent.com/55826410/185794011-bba11ecf-83ca-4b07-b743-ee14aadf4b5d.png" width="200" height="450" />
 
 <img src="https://user-images.githubusercontent.com/55826410/185794012-f0ce4758-fe9d-4a83-8010-bea88ff75ac8.png" data-canonical-src="https://user-images.githubusercontent.com/55826410/185794012-f0ce4758-fe9d-4a83-8010-bea88ff75ac8.png" width="200" height="450" />
-
+</div>
 
 ## Team  
 
