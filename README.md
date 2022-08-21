@@ -33,6 +33,10 @@ Chat app designed to chat with developers all around the world around on various
 <div align="center">
   
 https://user-images.githubusercontent.com/55826410/185793582-1aece764-5436-4474-909b-099b666fc1ee.mp4
+  
+
+https://user-images.githubusercontent.com/55826410/185798141-fb671d61-d490-487c-a85c-ea62067fcc88.mov
+
 
 https://user-images.githubusercontent.com/55826410/185793947-32d4997b-3964-4efe-a0b5-611c396de2c1.mov
 </div>
