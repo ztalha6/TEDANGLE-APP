@@ -59,161 +59,168 @@ class _ChatViewState extends State<ChatView> {
         //   title: const Text('ChatView'),
         //   centerTitle: true,
         // ),
-        body: Column(
-          children: [
-            Container(
-              height: 20.h,
-              color: Colors.transparent,
-              child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color(0xFF142F43),
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(40.0),
-                        bottomRight: Radius.circular(40.0),
+        body: SingleChildScrollView(
+          child: Container(
+            height: Get.height,
+            child: Column(
+              children: [
+                Container(
+                  height: 20.h,
+                  color: Colors.transparent,
+                  child: Container(
+                      decoration: const BoxDecoration(
+                          color: Color(0xFF142F43),
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(40.0),
+                            bottomRight: Radius.circular(40.0),
+                          )),
+                      child: Center(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: 2.h,
+                            ),
+                            Text(
+                              model.appName.value,
+                              style: TextStyle(
+                                fontSize: 20.sp,
+                                color: Colors.white70,
+                              ),
+                            ),
+                            Text(
+                              "Connect with programmers!",
+                              style: TextStyle(
+                                fontSize: 14.sp,
+                                color: Colors.green,
+                              ),
+                            ),
+                          ],
+                        ),
                       )),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        SizedBox(
-                          height: 2.h,
+                ),
+                SizedBox(
+                  height: Get.height / 1.50,
+                  child: StreamBuilder<List<Message>>(
+                    stream: appService.getMessages(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        final messages = snapshot.data!;
+                        // for (var i = 0; i < messages.length; i++) {
+                        //   messages.removeWhere((element) =>
+                        //       element.content == messages[i].content &&
+                        //       element.isMine);
+                        // }
+                        // messages.removeWhere((element) => !element.markAsRead);
+                        return ListView.builder(
+                            shrinkWrap: true,
+                            reverse: true,
+                            itemCount: messages.length,
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 16, vertical: 16),
+                            itemBuilder: (BuildContext context, int index) {
+                              final message = messages[index];
+                              // return Text(message.content);
+                              return ChatBubble(
+                                message: message,
+                              );
+                            });
+                      }
+                      return const Center(
+                        child: CircularProgressIndicator.adaptive(
+                          backgroundColor: Colors.grey,
                         ),
-                        Text(
-                          model.appName.value,
-                          style: TextStyle(
-                            fontSize: 20.sp,
-                            color: Colors.white70,
-                          ),
-                        ),
-                        Text(
-                          "Connect with programmers!",
-                          style: TextStyle(
-                            fontSize: 14.sp,
-                            color: Colors.green,
-                          ),
-                        ),
-                      ],
-                    ),
-                  )),
-            ),
-            SizedBox(
-              height: Get.height / 1.50,
-              child: StreamBuilder<List<Message>>(
-                stream: appService.getMessages(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasData) {
-                    final messages = snapshot.data!;
-                    // for (var i = 0; i < messages.length; i++) {
-                    //   messages.removeWhere((element) =>
-                    //       element.content == messages[i].content &&
-                    //       element.isMine);
-                    // }
-                    // messages.removeWhere((element) => !element.markAsRead);
-                    return ListView.builder(
-                        shrinkWrap: true,
-                        reverse: true,
-                        itemCount: messages.length,
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 16, vertical: 16),
-                        itemBuilder: (BuildContext context, int index) {
-                          final message = messages[index];
-                          // return Text(message.content);
-                          return ChatBubble(
-                            message: message,
-                          );
-                        });
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(
-                      backgroundColor: Colors.grey,
-                    ),
-                  );
-                },
-              ),
-              //  ListView.builder(
-              //     shrinkWrap: true,
-              //     itemCount: chats.length,
-              //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
-              //     itemBuilder: (BuildContext context, int index) {
-              //       return ChatBubble(
-              //           text: chats[index].message,
-              //           isFromSender: chats[index].isFromSender);
-              //     }),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, bottom: 16, top: 12),
-              child: Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  SizedBox(
-                    width: 0.5.h,
+                      );
+                    },
                   ),
-                  SizedBox(
-                    width: Get.width / 1.38,
-                    child: Form(
-                      key: _formkey,
-                      child: TextField(
-                        onSubmitted: isLoading
-                            ? (s) {}
-                            : (s) {
-                                // chats.add(ChatModel(messageController.text, true));
-                                _submit(appService);
-                                // setState(() {});
-                              },
-                        style: const TextStyle(color: Colors.white),
-                        controller: messageController,
-                        textInputAction: TextInputAction.done,
-                        decoration: InputDecoration(
-                          border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
+                  //  ListView.builder(
+                  //     shrinkWrap: true,
+                  //     itemCount: chats.length,
+                  //     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+                  //     itemBuilder: (BuildContext context, int index) {
+                  //       return ChatBubble(
+                  //           text: chats[index].message,
+                  //           isFromSender: chats[index].isFromSender);
+                  //     }),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 16, right: 16, bottom: 16, top: 12),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      SizedBox(
+                        width: 0.5.h,
+                      ),
+                      SizedBox(
+                        width: Get.width / 1.38,
+                        child: Form(
+                          key: _formkey,
+                          child: TextField(
+                            onSubmitted: isLoading
+                                ? (s) {}
+                                : (s) {
+                                    // chats.add(ChatModel(messageController.text, true));
+                                    _submit(appService);
+                                    // setState(() {});
+                                  },
+                            style: const TextStyle(color: Colors.white),
+                            controller: messageController,
+                            textInputAction: TextInputAction.done,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(20.0),
+                                borderSide: const BorderSide(
+                                    color: Colors.amber, width: 2.0),
+                              ),
+                              filled: true,
+                              hintStyle:
+                                  const TextStyle(color: Color(0xFFA6A6A6)),
+                              hintText: "Type in your text",
+                              fillColor: const Color(0xFF004AAD),
+                            ),
                           ),
-                          focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20.0),
-                            borderSide: const BorderSide(
-                                color: Colors.amber, width: 2.0),
-                          ),
-                          filled: true,
-                          hintStyle: const TextStyle(color: Color(0xFFA6A6A6)),
-                          hintText: "Type in your text",
-                          fillColor: const Color(0xFF004AAD),
                         ),
                       ),
-                    ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.all(Radius.circular(40)),
+                          color: Color(0xFF004AAD),
+                        ),
+                        height: 7.h,
+                        width: 15.w,
+                        child: IconButton(
+                          onPressed: isLoading
+                              ? () {}
+                              : () {
+                                  // chats.add(ChatModel(messageController.text, true));
+                                  _submit(appService);
+                                  // setState(() {});
+                                },
+                          icon: isLoading
+                              ? SizedBox(
+                                  height: 3.5.h,
+                                  width: 6.w,
+                                  child: CircularProgressIndicator(
+                                    color: Color(0xFFFFC331),
+                                  ),
+                                )
+                              : const Icon(Icons.bolt,
+                                  color: Color(0xFFFFC331)),
+                        ),
+                      )
+                    ],
                   ),
-                  const SizedBox(
-                    width: 10,
-                  ),
-                  Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(40)),
-                      color: Color(0xFF004AAD),
-                    ),
-                    height: 7.h,
-                    width: 15.w,
-                    child: IconButton(
-                      onPressed: isLoading
-                          ? () {}
-                          : () {
-                              // chats.add(ChatModel(messageController.text, true));
-                              _submit(appService);
-                              // setState(() {});
-                            },
-                      icon: isLoading
-                          ? SizedBox(
-                              height: 3.h,
-                              width: 6.w,
-                              child: CircularProgressIndicator(
-                                color: Color(0xFFFFC331),
-                              ),
-                            )
-                          : const Icon(Icons.bolt, color: Color(0xFFFFC331)),
-                    ),
-                  )
-                ],
-              ),
-            )
-          ],
+                )
+              ],
+            ),
+          ),
         ),
       );
     });
