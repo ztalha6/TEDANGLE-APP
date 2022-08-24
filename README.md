@@ -78,6 +78,9 @@ GitHub Handle: https://github.com/Gaurangseven
 To develop an open-source chat app specially designed to cater the needs of a developer to chat with fellow buddies and ignite their minds with tech ideas.
 
 # Supabase Usage
+
+https://www.madewithsupabase.com/p/tedangle
+
 ## Authentication: 
 Using Supabase email authentication to set up users on to the chat app for only valid users in the system.
 
